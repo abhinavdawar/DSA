@@ -1,4 +1,3 @@
-
 class Recursion:
   
   def printIncreasing(a, b):
@@ -101,7 +100,7 @@ class Recursion:
   # Here, ans is type string and res is type array which will store all ans
   def subSequence_other_way(str, idx, ans, res):
     if(idx == len(str)):
-      res.add(ans)
+      res.append(ans)
       return 1
 
     count = 0
@@ -147,4 +146,67 @@ class Recursion:
 
     if(sr+1 <= er and sc+1 <= ec):
       count += mazePath_HVD_other_way(sr+1, sc, er, ec, ans+"D", res)
+    return count
+
+
+  def mazePath_HVD_another_way(sr, sc, er, ec, dir, dirS, ans, res):
+    if(sr == er and sc == ec):
+      res.append(ans)
+      return 1
+
+    count = 0
+    for d in range(0,len(dir)):
+      x = sr + dir[d][0]
+      y = sc + dir[d][1]
+      if(x >= 0 and y >= 0 and x <= er and y <= ec):
+        count += mazePath_HVD_another_way(x, y , er, ec, dir, dirS, ans + dirS[d], res)
+
+    return count
+
+
+  def floodFill(sr, sc, dir, dirS, ans, res, visited):
+    n = len(visited)
+    m = len(visited[0])
+    
+    if(sr == n-1 and sc == m-1):
+      res.append(ans)
+      return 1
+
+    count = 0
+    visited[sr][sc] = True
+    for d in range(0,len(dir)):
+      x = sr + dir[d][0]
+      y = sc + dir[d][1]
+      if(x >= 0 and y >= 0 and x < n and y < m and visited[x][y] == False):
+        count += floodFill(x, y , dir, dirS, ans + dirS[d], res, visited)
+
+    visited[sr][sc] = False
+    return count
+
+  # it is giving wrong output
+  def equalset(arr, set1, set2, idx):
+    if(idx == len(arr)):
+      if(sum(set1) == sum(set2)):
+        print("set1 -> " + set1)
+        print("set2 -> " + set2)
+        return 1
+      else:
+        return 0
+    count = 0
+    count += equalset(arr, set1 + [arr[idx]], set2, idx+1)
+    count += equalset(arr, set1, set2 + [arr[idx]], idx+1)
+    return count
+
+
+  def permutation(string, ans):
+    if(len(string) == 0):
+      print(ans)
+      return 1
+        
+    count = 0
+    for i in range(0, len(string)):
+      ch = string[i]
+      ros = string[0: i] + string[i+1:]
+      count += permutation(ros , ans + ch)
+
     return count
