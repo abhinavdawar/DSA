@@ -210,3 +210,73 @@ class Recursion:
       count += permutation(ros , ans + ch)
 
     return count
+
+# Coins, Permutation and Combination problems
+  def permutationInfiniteCoins(arr, target, string):
+    if(target == 0):
+      print(string)
+      return 1
+      
+    count = 0
+    for ele in arr:
+      if(target - ele >= 0):
+        count += permutationInfiniteCoins(arr, target-ele, string+str(ele))
+        
+    return count
+
+
+  def combinationInfiniteCoins(arr, target, string, idx):
+    if(target == 0):
+      print(string)
+      return 1
+
+    count = 0
+    for i in range(idx, len(arr)):
+      if(target - arr[idx] >= 0):
+        count += combinationInfiniteCoins(arr, target-arr[i], string+str(arr[i]), i)
+
+    return count
+
+
+  def combinationSingleCoins(arr, target, string, idx):
+    if(target == 0):
+      print(string)
+      return 1
+
+    count = 0
+    for i in range(idx, len(arr)):
+      if(target - arr[i] >= 0):
+        count += combinationSingleCoins(arr, target-arr[i], string+str(arr[i]), i+1)
+
+    return count
+
+
+  def permutationSingleCoins(arr, target, string):
+    if(target == 0):
+      print(string)
+      return 1
+      
+    count = 0
+    for i in range(0, len(arr)):
+      if(arr[i] > 0 and target - arr[i] >= 0):
+        val = arr[i]
+        arr[i] = -val
+        count += permutationSingleCoins(arr, target-val, string+str(val))
+        arr[i] = val
+        
+    return count
+
+
+  def combinationSingleCoins_subsequenceMethod(arr, target, string, idx):
+    if(target == 0 or idx == len(arr)):
+      if(target == 0):
+        print(ans)
+        return 1
+      return 0
+
+    count = 0
+    if(target - arr[idx] >= 0):
+      count += combinationSingleCoins_subsequenceMethod(arr, target-arr[idx], string+str(arr[idx]), idx+1)
+    count += combinationSingleCoins_subsequenceMethod(arr, target, string, idx+1)
+
+    return count

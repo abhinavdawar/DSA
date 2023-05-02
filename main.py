@@ -37,6 +37,10 @@ from recursion import Recursion
 # print(Recursion.floodFill(sr, sc, dir, dirS, "", res, visited))
 # print(res)
 
-print(Recursion.equalset([1,2,3,4,5,6], [], [], 0))
+# print(Recursion.equalset([1,2,3,4,5,6], [], [], 0))
 
 # Recursion.permutation("abc", "")
+
+arr = [2,3,5,7]
+target = 10
+print(Recursion.permutationSingleCoins(arr, target, ""))
